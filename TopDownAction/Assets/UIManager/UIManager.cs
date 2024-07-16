@@ -114,24 +114,24 @@ public class UIManager : MonoBehaviour
         mainImage.SetActive(false);
     }
 
-    //// 게임 클리어
-    //public void GameClear()
-    //{
-    //    // 이미지 표시
-    //    mainImage.SetActive(true);
-    //    mainImage.GetComponent<Image>().sprite = gameClearSpr; //「GAMR CLEAR」を設定する
-    //    // 조작 UI 숨기기
-    //    inputPanel.SetActive(false);
-    //    // 게임 클리어로 표시
-    //    PlayerController.gameState = "gameclear";
-    //    // 3초뒤에 게임 타이틀로 돌아 가기
-    //    Invoke("GoToTitle", 3.0f);
-    //}
+    // 게임 클리어
+    public void GameClear()
+    {
+        // 이미지 표시
+        mainImage.SetActive(true);
+        mainImage.GetComponent<Image>().sprite = gameClearSpr; // GAME CLEAR 설정
+        // 조작 ui 숨기기
+        inputPanel.SetActive(false);
+        // 게임 클리어로 표시
+        PlayerController.gameState = "gameclear";
+        // 3초뒤에 게임 타이틀로 돌아 가기
+        Invoke("GoToTitle", 3.0f);
+    }
 
-    //// 타이틀 화면으로 이동
-    //void GoToTitle()
-    //{
-    //    PlayerPrefs.DeleteKey("LastScene"); // 저장 씬을 제거
-    //    SceneManager.LoadScene("Title");    // 타이틀로 돌아가기
-    //}
+    // 타이틀 화면으로 이동
+    void GoToTitle()
+    {
+        PlayerPrefs.DeleteKey("LastScene"); // 저장 씬을 제거
+        SceneManager.LoadScene("Title");    // 타이틀로 돌아가기
+    }
 }

@@ -17,10 +17,21 @@ public class CameraManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            // 플레이어의 위치와 연동
-            transform.position = new Vector3(player.transform.position.x,
-                             player.transform.position.y,
-                                             -10);
+            if (otherTarget != null)
+            {
+                Vector2 pos = Vector2.Lerp(player.transform.position, otherTarget.transform.position, 0.5f); // Lerp 선형보간, 중간값 계산, 부드러운 움직임에 많이 쓰임
+
+                // 플레이어의 위치와 연동
+                transform.position = new Vector3(pos.x, pos.y, -10);
+            }
+            else
+            {
+                // 플레이어의 위치와 연동
+                transform.position = new Vector3(
+                    player.transform.position.x,
+                    player.transform.position.y,
+                    -10);
+            }
         }
     }
 }

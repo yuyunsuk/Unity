@@ -15,7 +15,7 @@ public class ArrowShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ItemKeeper.hasArrows = 0; // Test ItemKeeper.hasArrows = 1000
+        ItemKeeper.hasArrows = 3; // Test ItemKeeper.hasArrows = 1000
 
         // 활을 플레이어 캐릭터에 배치
         Vector3 pos = transform.position;
@@ -26,8 +26,9 @@ public class ArrowShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // if ((Input.GetButtonDown("Fire3"))) // 왼쪽 쉬프트키
+        // if ((Input.GetButtonDown("Jump"))) // 스페이스키
+
         if ((Input.GetButtonDown("Jump"))) // 스페이스키
         {
             // 공격 키가 눌림

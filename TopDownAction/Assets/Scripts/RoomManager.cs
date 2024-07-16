@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviour
 {
-
-    public GameObject otherTarget;
-
     // static 변수
     public static int doorNumber = 0;   // 문 번호
 
@@ -59,10 +56,8 @@ public class RoomManager : MonoBehaviour
                 }
 
                 // GameObject player = GameObject.FindGameObjectWithTag("Player");
+                // GameObject.FindGameObjectWithTag("Player");
 
-
-                    
-                    GameObject.FindGameObjectWithTag("Player");
                 player.transform.position = new Vector3(x, y);
 
                 break; // 반복문 빠나오기
@@ -73,18 +68,6 @@ public class RoomManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (otherTarget != null)
-        {
-            Vector2 pos = Vector2.Lerp(player.transform.position, otherTarget.transform.position, 0.5f); // Lerp 선형보간, 중간값 계산, 부드러운 움직임에 많이 쓰임
-            transform.position = new Vector3(pos.x, pos.y, -10);
-        }
-        else
-        {
-            transform.position = new Vector3(
-                player.transform.position.x,
-                player.transform.position.y,
-                -10);
-        }
     }
 
     // 씬 이동

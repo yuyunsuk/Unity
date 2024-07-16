@@ -32,8 +32,13 @@ public class Exit : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Player Attech!!!");
-            RoomManager.ChangeScene(sceneName, doorNumber);
+            if (doorNumber == 100)
+            {
+                // 게임 클리어
+                GameObject.FindObjectOfType<UIManager>().GameClear();
+            } else {
+                RoomManager.ChangeScene(sceneName, doorNumber);
+            }
         }
     }
 }
