@@ -106,6 +106,10 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("PlayerHP", 3);
         // 게임 중으로 설정
         SceneManager.LoadScene(retrySceneName); // 씬 이동
+
+        ItemKeeper.hasArrows = 3;
+        PlayerController.hp  = 3;
+        ItemKeeper.hasKeys   = 0;
     }
 
     // 이미지 숨기기

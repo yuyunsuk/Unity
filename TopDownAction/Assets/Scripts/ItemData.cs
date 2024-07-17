@@ -12,6 +12,8 @@ public enum ItemType
 
 public class ItemData : MonoBehaviour
 {
+    SaveLoadManager saveLoadManager;
+
     public ItemType type;       // 아이템의 종류
     public int count = 1;       // 아이템 수
 
@@ -20,7 +22,7 @@ public class ItemData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        saveLoadManager = GameObject.FindObjectOfType<SaveLoadManager>();
     }
 
     // Update is called once per frame
@@ -58,6 +60,8 @@ public class ItemData : MonoBehaviour
                     PlayerPrefs.SetInt("PlayerHP", PlayerController.hp);
                 }
             }
+            // 배치 Id 저장
+            saveLoadManager.SetSceneData(this.gameObject.name, false);
 
             Debug.Log("ItemKeeper.hasKeys: "   + ItemKeeper.hasKeys);
             Debug.Log("ItemKeeper.hasArrows: " + ItemKeeper.hasArrows);
@@ -69,9 +73,10 @@ public class ItemData : MonoBehaviour
 
             // 아이템의 Rigidbody2D가져오기
             Rigidbody2D itemBody = GetComponent<Rigidbody2D>();
+
             // 중력 젹용
-            // itemBody.gravityScale = 2.5f; // 1.0f 는 중력 그대로, 2.5f 는 중력의 2.5배
-            itemBody.gravityScale = 1.0f; // 1.0f 는 중력 그대로, 2.5f 는 중력의 2.5배 (안뛰어오름)
+            itemBody.gravityScale = 2.5f; // 1.0f 는 중력 그대로, 2.5f 는 중력의 2.5배
+            //itemBody.gravityScale = 1.0f; // 1.0f 는 중력 그대로, 2.5f 는 중력의 2.5배 (안뛰어오름)
 
             // 위로 튀어오르는 연출
             itemBody.AddForce(new Vector2(0, 6), ForceMode2D.Impulse); // 중력이 1.0f 일때 너무 높이 올라감
