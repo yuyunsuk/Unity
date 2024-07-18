@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 using System.Threading.Tasks; // 비동기 작업에 사용
 
+#if !USE_SCRIPTABLE_OBJECT
 public class GlobalData {
     public int arrows;
     public int keys;
@@ -197,3 +198,4 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 }
+#endif
