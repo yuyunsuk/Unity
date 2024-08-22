@@ -8,19 +8,19 @@ public class RoomManager : MonoBehaviour
     // static 변수
     public static int doorNumber = 0;   // 문 번호
 
-    // PreFab 으로 등록해서 위치 이동
-    public GameObject PlayerPrefab;
-    GameObject player;
+    //// PreFab 으로 등록해서 위치 이동
+    // public GameObject PlayerPrefab;
+    // GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        // 위치 벡터
-        Vector3 pos = transform.position;
+        //// 위치 벡터
+        // Vector3 pos = transform.position;
 
-        // PreFab 으로 등록해서 위치 이동
-        player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
+        //// PreFab 으로 등록해서 위치 이동
+        // player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
 
         // 플레이어 캐릭터 위치
         // 출입구를 배열로 얻기
@@ -55,7 +55,7 @@ public class RoomManager : MonoBehaviour
                     x -= 1;
                 }
 
-                // GameObject player = GameObject.FindGameObjectWithTag("Player");
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
                 // GameObject.FindGameObjectWithTag("Player");
 
                 player.transform.position = new Vector3(x, y);
