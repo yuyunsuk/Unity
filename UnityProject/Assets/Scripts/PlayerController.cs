@@ -33,6 +33,25 @@ public class PlayerController : MonoBehaviour
     public Material playerMaterial;
     CameraShake Camera;
 
+    private bool isPaused = false;
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1; // 게임 시간의 흐름을 멈추거나 다시 시작
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+
+    public void ContinueGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +69,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P)) // 키보드 'P'를 눌러서 일시 중지 및 재개
+        {
+            TogglePause();
+        }
+
         if (sceneStatusManager.GetComponent<SceneStatusManager>().sceneState == SceneStatusManager.SceneStatus.Ready)
         {
             return;

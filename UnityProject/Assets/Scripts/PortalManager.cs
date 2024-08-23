@@ -12,9 +12,10 @@ public class PortalManager : MonoBehaviour
 
     // JavaScript와의 통신을 위한 P/Invoke 선언
     [DllImport("__Internal")]
-    private static extern void OpenReactWindowNotice();
+    private static extern void OpenReactWindowNotices(string Roomname);
 
-
+    [DllImport("__Internal")]
+    private static extern void NoticesStart();
 
     public int portalNum = 0;
     public int movePortalNum = 0;
@@ -27,8 +28,6 @@ public class PortalManager : MonoBehaviour
     float waitingTime = 1.0f;
     UIController uiController;
     public string Roomname;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -97,8 +96,11 @@ public class PortalManager : MonoBehaviour
             if (Roomname == "공지사항") {
                 Debug.Log("OnTriggerEnter PortalManager!!! => React Load!!!: " + Roomname);
 
-                // JavaScript 함수 호출
-                OpenReactWindowNotice();
+                // extern 함수 호출, WEBGL 로 Message 전달
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+                    OpenReactWindowNotices(Roomname); // 윈도우 오픈(공지사항)
+                    // NoticesStart(); // 공지사항 위도우 오픈 alert
+#endif
             }
         }
     }
