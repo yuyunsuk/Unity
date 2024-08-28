@@ -6,17 +6,6 @@ using System.Runtime.InteropServices;
 
 public class PortalManager : MonoBehaviour
 {
-    // GameOver시에 이름과 점수 전달
-    // [DllImport("__Internal")]
-    // private static extern void GameOverExtern(string userName, int score);
-
-    // JavaScript와의 통신을 위한 P/Invoke 선언
-    [DllImport("__Internal")]
-    private static extern void OpenReactWindowNotices(string Roomname);
-
-    [DllImport("__Internal")]
-    private static extern void NoticesStart();
-
     public int portalNum = 0;
     public int movePortalNum = 0;
     public string sceneName = "Lobby";
@@ -28,6 +17,42 @@ public class PortalManager : MonoBehaviour
     float waitingTime = 1.0f;
     UIController uiController;
     public string Roomname;
+
+    // GameOver시에 이름과 점수 전달
+    // [DllImport("__Internal")]
+    // private static extern void GameOverExtern(string userName, int score);
+
+    // JavaScript와의 통신을 위한 P/Invoke 선언
+    [DllImport("__Internal")]
+    private static extern void OpenReactWindow(string Roomname);
+
+    [DllImport("__Internal")]
+    private static extern void NoticesStart();
+
+    private bool isPaused = false;
+    //public void TogglePause()
+    //{
+    //    isPaused = !isPaused;
+    //    Time.timeScale = isPaused ? 0 : 1; // 게임 시간의 흐름을 멈추거나 다시 시작
+    //}
+
+    public void PauseGame()
+    {
+        /* 다른 React Window 에서 Keyboard Input => 적용후 timeScale 0 으로 세팅 */
+        WebGLInput.captureAllKeyboardInput = false;
+
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+
+    public void ContinueGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
+
+        /* Player 이동 등 Keyboard Input => timeScale 1로 세팅후 적용 */
+        WebGLInput.captureAllKeyboardInput = true;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -93,13 +118,15 @@ public class PortalManager : MonoBehaviour
             isPortal = true;
             uiController.Image.SetActive(true);
             if (Roomname != null) uiController.UIText.text = Roomname;
-            if (Roomname == "공지사항") {
+            if (Roomname == "공지사항" || Roomname == "이벤트" || Roomname == "QA") {
                 Debug.Log("OnTriggerEnter PortalManager!!! => React Load!!!: " + Roomname);
+
+                /* 다른 React Window 에서 Keyboard Input 가능 및 PauseGame */
+                PauseGame();
 
                 // extern 함수 호출, WEBGL 로 Message 전달
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
-                    OpenReactWindowNotices(Roomname); // 윈도우 오픈(공지사항)
-                    // NoticesStart(); // 공지사항 위도우 오픈 alert
+                    OpenReactWindow(Roomname); // 윈도우 오픈(Roomname)
 #endif
             }
         }

@@ -33,23 +33,50 @@ public class PlayerController : MonoBehaviour
     public Material playerMaterial;
     CameraShake Camera;
 
-    private bool isPaused = false;
-    public void TogglePause()
+    [System.Serializable]
+    public class MyData
     {
-        isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0 : 1; // 게임 시간의 흐름을 멈추거나 다시 시작
+        public string lectureId;
+        public long lectureContentSeq;
+        public int questionSeq;
+        public string question;
+        public string answer1;
+        public string answer2;
+        public string answer3;
+        public string answer4;
+        public int correctAnswer;
     }
 
-    public void PauseGame()
+    [System.Serializable]
+    public class MyDataArrayWrapper
     {
-        isPaused = true;
-        Time.timeScale = 0;
+        public MyData[] items;
     }
 
-    public void ContinueGame()
+    public void ReceiveJsonData(string jsonData)
     {
-        isPaused = false;
-        Time.timeScale = 1;
+
+        Debug.Log("Unity Received JSON: " + jsonData);
+
+        // JSON 문자열을 MyDataArrayWrapper 객체로 변환
+        var wrapper = JsonUtility.FromJson<MyDataArrayWrapper>("{\"items\":" + jsonData + "}");
+
+        // 래퍼에서 MyData 배열을 추출
+        MyData[] dataArray = wrapper.items;
+
+        // 데이터 처리 로직
+        if (dataArray != null && dataArray.Length > 0)
+        {
+            foreach (var data in dataArray)
+            {
+                Debug.Log($"Received data: lectureId = {data.lectureId}, lectureContentSeq = {data.lectureContentSeq}, questionSeq = {data.questionSeq}," +
+                    $" Question = {data.question}, Answer1 = {data.answer1}, Answer2 = {data.answer2}, Answer3 = {data.answer3}, Answer4 = {data.answer4}, correctAnswer = {data.correctAnswer}");
+            }
+        }
+        else
+        {
+            Debug.Log("No data received or data is null.");
+        }
     }
 
     // Start is called before the first frame update
@@ -69,11 +96,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) // 키보드 'P'를 눌러서 일시 중지 및 재개
-        {
-            TogglePause();
-        }
-
         if (sceneStatusManager.GetComponent<SceneStatusManager>().sceneState == SceneStatusManager.SceneStatus.Ready)
         {
             return;

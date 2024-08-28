@@ -5,7 +5,7 @@ mergeInto(LibraryManager.library, {
 	NoticesStart: function () {
     window.alert("Notices Start!!!");
   },
-  OpenReactWindowNotices: function (roomName) {
-    window.dispatchReactUnityEvent("OpenReactWindowNotices", UTF8ToString(roomName));
+  OpenReactWindow: function (roomName) {
+    window.dispatchReactUnityEvent("OpenReactWindow", UTF8ToString(roomName));
   },
 });
