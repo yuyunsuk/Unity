@@ -19,7 +19,7 @@ public class NPCRandomMovement : MonoBehaviour
 
     // 애니메이션 상태 이름
     private string[] animationStates = { "Agreeing", "ArmStretching", "Bored", "CWalk", "DIdle", "HeadGesture", "Idle", "Idle2", "LAround", "LAround2",
-                                         "Listening", "NeckStretching", "OffensiveIdle", "SadIdle", "ShoulderRubbing", "Standing", "Talk", "WeightShift", "Yawn" };
+                                         "Listening", "NeckStretching", "OffensiveIdle", "SadIdle", "ShoulderRubbing", "Talk", "WeightShift", "Yawn" };
 
     private string animationState = "Idle";
     private Rigidbody rb;
