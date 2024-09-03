@@ -29,7 +29,6 @@ public class PointerOn : MonoBehaviour
         {
             Pointer.SetActive(true);
             PortalCircle.SetActive(true);
-            // Debug.Log("OnTriggerEnter PointerOn!!!");
         }
     }
 
@@ -39,7 +38,6 @@ public class PointerOn : MonoBehaviour
         {
             Pointer.SetActive(true);
             PortalCircle.SetActive(true);
-            // Debug.Log("OnTriggerStay PointerOn!!!");
         }
     }
 
@@ -49,7 +47,6 @@ public class PointerOn : MonoBehaviour
         {
             Pointer.SetActive(false);
             PortalCircle.SetActive(false);
-            // Debug.Log("OnTriggerExit PointerOn!!!");
         }
     }
 }

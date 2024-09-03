@@ -12,6 +12,9 @@ TagManager:
   - Wall
   - CorrectWrongMark
   - QuizItem
+  - Boost
+  - RunningMapUI
+  - RunningMapQuizPanel
   layers:
   - Default
   - TransparentFX
