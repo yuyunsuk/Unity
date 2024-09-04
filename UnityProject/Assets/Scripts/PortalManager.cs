@@ -124,7 +124,7 @@ public class PortalManager : MonoBehaviour
             Roomname == "나의학습" ||
             Roomname == "장바구니" ||
             Roomname == "이벤트" ||
-            Roomname == "질의응답 ")
+            Roomname == "질의응답")
         {
 
             Debug.Log("OnTriggerEnter PortalManager!!! => React Load!!!: " + Roomname);
