@@ -59,7 +59,7 @@ public class PortalManager : MonoBehaviour
     {
         portals = GameObject.FindGameObjectsWithTag("Exit");
         uiController = GameObject.FindGameObjectWithTag("UITextBar").GetComponent<UIController>();
-        uiController.Image.SetActive(false);
+        //uiController.Image.SetActive(false);
 
     }
 
@@ -123,8 +123,13 @@ public class PortalManager : MonoBehaviour
             Roomname == "회원탈퇴" ||
             Roomname == "나의학습" ||
             Roomname == "장바구니" ||
-            Roomname == "이벤트" ||
-            Roomname == "질의응답")
+            Roomname == "이벤트"   ||
+            Roomname == "질의응답" ||
+            Roomname == "로그아웃" ||
+            Roomname == "강의"     ||
+            Roomname == "회원관리" ||
+            Roomname == "강의관리" ||
+            Roomname == "수강관리")
         {
 
             Debug.Log("OnTriggerEnter PortalManager!!! => React Load!!!: " + Roomname);

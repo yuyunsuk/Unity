@@ -21,7 +21,10 @@ public class UIController : MonoBehaviour
     public GameObject two;
     public GameObject one;
     public GameObject start;
+    public GameObject finish;
     public GameObject answerIcon;
+    public GameObject RunningMapQuizPanel;
+    public GameObject EnterKeyInfo;
 
     int statusCount = 5;
     float timer = 0.0f;
@@ -132,15 +135,18 @@ public class UIController : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
-        Debug.Log("");
+        Debug.Log(SceneManager.GetActiveScene().name);
+        Debug.Log(SceneManager.GetActiveScene().name == "RunningMap");
 
         if (SceneManager.GetActiveScene().name == "RunningMap")
         {
-            GameObject.FindGameObjectWithTag("RunningMapQuizPanel").SetActive(true);
+            RunningMapQuizPanel.SetActive(true);
+            EnterKeyInfo.SetActive(false);
         }
-        else
+        else if (SceneManager.GetActiveScene().name != "RunningMap")
         {
-            GameObject.FindGameObjectWithTag("RunningMapQuizPanel").SetActive(false);
+            RunningMapQuizPanel.SetActive(false);
+            EnterKeyInfo.SetActive(true);
         }
 
         Image.SetActive(false);
@@ -156,28 +162,26 @@ public class UIController : MonoBehaviour
 
     private void UIChangeStatus(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("");
-        Image.SetActive(false);
+        Debug.Log("UIChangeStatus");
 
         if (SceneManager.GetActiveScene().name == "RunningMap")
         {
-            GameObject.FindGameObjectWithTag("RunningMapQuizPanel").SetActive(true);
+            RunningMapQuizPanel.SetActive(true);
+            EnterKeyInfo.SetActive(false);
         }
-        else
+        else if (SceneManager.GetActiveScene().name != "RunningMap")
         {
-            GameObject.FindGameObjectWithTag("RunningMapQuizPanel").SetActive(false);
-        }
-
-        UIText.text = "";
-        if (sceneStatusManager.GetComponent<SceneStatusManager>().sceneState == SceneStatusManager.SceneStatus.Ready)
-        {
-            ready.SetActive(true);
+            RunningMapQuizPanel.SetActive(false);
+            EnterKeyInfo.SetActive(true);
         }
         answerIcon.SetActive(false);
+
+        Image.SetActive(false);
+        UIText.text = "";
     }
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
         
     }
@@ -219,6 +223,20 @@ public class UIController : MonoBehaviour
                 statusCount = statusCount - 1;
                 timer = 0.0f;
             }
+        }
+
+        if (sceneStatusManager.GetComponent<SceneStatusManager>().sceneState == SceneStatusManager.SceneStatus.Finish)
+        {
+            finish.SetActive(true);
+            timer += Time.deltaTime;
+            if (timer > waitingTime)
+            {
+                finish.SetActive(false);
+            }
+        }
+        else
+        {
+            finish.SetActive(false);
         }
     }
 }
