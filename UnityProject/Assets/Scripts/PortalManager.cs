@@ -28,6 +28,7 @@ public class PortalManager : MonoBehaviour
     float waitingTime = 1.0f;
     UIController uiController;
     public string Roomname;
+    public GameObject schoolMapUI;
 
     private bool isPaused = false;
     public void TogglePause()
@@ -55,12 +56,20 @@ public class PortalManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            schoolMapUI = GameObject.FindGameObjectWithTag("MapDisplay");
+        }
+    }
+
     void Start()
     {
         portals = GameObject.FindGameObjectsWithTag("Exit");
         uiController = GameObject.FindGameObjectWithTag("UITextBar").GetComponent<UIController>();
-        //uiController.Image.SetActive(false);
-
+        schoolMapUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -77,6 +86,16 @@ public class PortalManager : MonoBehaviour
                 {
                     string scene = SceneManager.GetActiveScene().name;
 
+                    if (sceneName == "RunningMap")
+                    {
+                        UIController.MyData[] Questions = GameObject.FindGameObjectWithTag("UITextBar").GetComponent<UIController>().Questions;
+                        if (Questions[0].question == null)
+                        {
+                            uiController.RunningMapEmptyDataUI.SetActive(true);
+                            Debug.Log("Empty Data");
+                            break;
+                        }
+                    }
                     if (scene != sceneName)
                     {
                         SceneManager.LoadScene(sceneName);
@@ -110,10 +129,7 @@ public class PortalManager : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col)
-    {
-        if (90 < portalNum) return;
-
-        
+    {  
     }
 
         private void OnTriggerStay(Collider col)
@@ -130,22 +146,28 @@ public class PortalManager : MonoBehaviour
 
         if (col.gameObject.tag == "Player" && !isPortalLock && (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.Space)))
         {
+            GameObject.FindGameObjectWithTag("UITextBar").GetComponent<UIController>();
             isPortal = true;
             uiController.Image.SetActive(true);
             if (Roomname != null) uiController.UIText.text = Roomname;
+            if (Roomname == "맵 안내")
+            {
+                schoolMapUI.SetActive(true);
+            }
             if (Roomname == "공지사항" ||
                 Roomname == "회원정보" ||
                 Roomname == "회원탈퇴" ||
                 Roomname == "나의학습" ||
                 Roomname == "장바구니" ||
-                Roomname == "이벤트"   ||
+                Roomname == "이벤트" ||
                 Roomname == "질의응답" ||
                 Roomname == "로그아웃" ||
-                Roomname == "강의"     ||
+                Roomname == "강의" ||
                 Roomname == "회원관리" ||
                 Roomname == "강의관리" ||
                 Roomname == "수강관리")
             {
+
                 Debug.Log("OnTriggerEnter PortalManager!!! => React Load!!!: " + Roomname);
 
                 //다른 React Window 에서 Keyboard Input 및 PauseGame

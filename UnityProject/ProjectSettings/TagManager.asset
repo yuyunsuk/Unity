@@ -15,6 +15,10 @@ TagManager:
   - Boost
   - RunningMapUI
   - RunningMapQuizPanel
+  - RunningResultUI
+  - RunningMapEmptyDataDisplay
+  - FxTemporaire
+  - MapDisplay
   layers:
   - Default
   - TransparentFX
